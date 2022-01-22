@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<LangVersion>9.0</LangVersion>
+		<ServerGarbageCollection>true</ServerGarbageCollection>
+		<TargetFrameworks>net5.0;netcoreapp3.1;net48;net6.0</TargetFrameworks>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="benchmarkdotnet" Version="0.13.1" />
+	</ItemGroup>
+
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net48' ">
+		<PackageReference Include="System.Memory" Version="4.5.4" />
+		<PackageReference Include="System.Text.Json" Version="4.7.2" />
+		<Reference Include="System.Net.Http" />
+	</ItemGroup>
+
+</Project>

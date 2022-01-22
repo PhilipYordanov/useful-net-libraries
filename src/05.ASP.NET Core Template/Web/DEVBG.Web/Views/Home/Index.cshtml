@@ -1,0 +1,18 @@
+﻿@using DEVBG.Common
+@using DEVBG.Web.ViewModels.Products; 
+@model IEnumerable<ProductViewModel>
+@{
+    this.ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+    <div class="text-center">
+        @foreach (var product in Model)
+        {
+            <p>@product.Name : @product.Price лв.</p>
+        }
+    </div>
+</div>
