@@ -8,6 +8,16 @@
 		<DocumentationFile>MediatRFluentDemo.xml</DocumentationFile>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	  <WarningsAsErrors>$(WarningsAsErrors);NU1605, CS15</WarningsAsErrors>
+	  <NoWarn>1701;1702, 1591</NoWarn>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+	  <WarningsAsErrors>$(WarningsAsErrors);NU1605, CS15</WarningsAsErrors>
+	  <NoWarn>1701;1702, 1591</NoWarn>
+	</PropertyGroup>
+
 	<ItemGroup>
 		<PackageReference Include="FluentValidation" Version="10.3.6" />
 		<PackageReference Include="FluentValidation.AspNetCore" Version="10.3.6" />

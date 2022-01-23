@@ -1,6 +1,6 @@
 ﻿namespace MediatRFluentDemo.Validators
 {
-    using Features.Persons.Commands.CreatePerson;
+    using Features.People.Commands.CreatePerson;
     using FluentValidation;
     using Microsoft.Extensions.Localization;
     using RestrictedModels;
@@ -14,7 +14,7 @@
         public CreatePersonCommandValidator(IStringLocalizer<CreatePersonCommandValidator> localizer)
         {
             RuleFor(e => e.FirstName)
-                .Cascade(CascadeMode.StopOnFirstFailure) // without this line we will retrieve two error messages;
+                .Cascade(CascadeMode.Stop) // without this line we will retrieve two error messages;
                 .NotEmpty() 
                 .WithMessage(e => string.Format(localizer["FirstNameMessage"], nameof(e.FirstName)))
                 .Length(1, 30)

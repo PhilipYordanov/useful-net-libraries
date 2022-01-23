@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using MediatRFluentDemo.Features.Persons.Commands.CreatePerson;
+using MediatRFluentDemo.Features.People.Commands.CreatePerson;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MediatRFluentDemo.Controllers

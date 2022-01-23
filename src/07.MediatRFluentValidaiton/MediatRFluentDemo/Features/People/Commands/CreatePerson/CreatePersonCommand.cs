@@ -1,4 +1,4 @@
-﻿namespace MediatRFluentDemo.Features.Persons.Commands.CreatePerson
+﻿namespace MediatRFluentDemo.Features.People.Commands.CreatePerson
 {
     using MediatR;
     using RestrictedModels;
