@@ -1,16 +1,18 @@
 using Polly;
 using System.Net;
 
+#region Configurations
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+#endregion
 
 #region Reactive Strategies
 var retryAsync = Policy
     .HandleResult<HttpResponseMessage>(r => !r.IsSuccessStatusCode)
     .Or<HttpRequestException>()
-    .RetryAsync(3);
+    .RetryAsync(retryCount: 3);
 
 var waitAndRetryAsync = Policy
     .HandleResult<HttpResponseMessage>(r => !r.IsSuccessStatusCode)
@@ -25,7 +27,7 @@ var waitAndRetryAsync = Policy
 var circuitBreakerAsync = Policy
     .HandleResult<HttpResponseMessage>(r => !r.IsSuccessStatusCode)
     .Or<HttpRequestException>()
-    .CircuitBreakerAsync(3, TimeSpan.FromSeconds(20));
+    .CircuitBreakerAsync(handledEventsAllowedBeforeBreaking: 3, durationOfBreak: TimeSpan.FromSeconds(20));
 
 var fallbackAsync = Policy
     .HandleResult<HttpResponseMessage>(r => r.StatusCode == HttpStatusCode.InternalServerError)
@@ -37,19 +39,18 @@ var fallbackAsync = Policy
 
 #region Proactive Strategies
 var timoutAsync = Policy
-    .TimeoutAsync<HttpResponseMessage>(4);
+    .TimeoutAsync<HttpResponseMessage>(seconds: 4);
 
 var bulkheadAsync = Policy
-    .BulkheadAsync<HttpResponseMessage>(3, 6);
+    .BulkheadAsync<HttpResponseMessage>(maxParallelization: 3, maxQueuingActions: 6);
 
 #endregion
 
 builder.Services.AddHttpClient("BrokenServer", client =>
 {
-    client.BaseAddress = new Uri("https://localhost:44303/api");
+    client.BaseAddress = new Uri("https://localhost:7009/api");
 })
-.AddPolicyHandler(retryAsync.WrapAsync(circuitBreakerAsync));
-
+.AddPolicyHandler(retryAsync);
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment())

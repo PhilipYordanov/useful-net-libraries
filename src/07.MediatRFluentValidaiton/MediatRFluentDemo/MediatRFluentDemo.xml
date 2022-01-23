@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MediatRFluentDemo</name>
+    </assembly>
+    <members>
+        <member name="M:MediatRFluentDemo.Controllers.MilestoneController.GetById(System.Guid)">
+            <summary>
+            Get an milestone by id
+            </summary>
+            <param name="id">The id of the milestone we want to get</param>
+            <returns>An ActioResult of type Milestone</returns>
+            <remarks>
+            Sample request ( this request gets the milestone by **id '92238e49-2b99-4318-256c-08d9d82f6ed5'** if exists  
+            ```
+            Get /milestones/id  
+            [  
+                {  
+                    "id": "92238e49-2b99-4318-256c-08d9d82f6ed5"  
+                }  
+            ]
+            ```
+            </remarks>
+            <response code="200">Returns the requested Milestone</response>
+        </member>
+        <member name="T:MediatRFluentDemo.Features.Milestones.Queries.GetAllMilestones.GetAllMilestonesQuery">
+            <summary>
+            IRequest where T is the return type
+            </summary>
+        </member>
+        <member name="T:MediatRFluentDemo.Features.Milestones.Queries.GetAllMilestones.GetAllMilestonesQueryHandler">
+            <summary>
+            IRequestHandler suggests that we are going to handle GetAllMilestonesQuery, and return list of milestones
+            </summary>
+        </member>
+        <member name="T:MediatRFluentDemo.Models.Milestone">
+            <summary>
+            An milestone with Id, TItle, Content, AchivedOn, AdditionalDetails
+            </summary>
+        </member>
+        <member name="P:MediatRFluentDemo.Models.Milestone.Id">
+            <summary>
+            The id of the milestone
+            </summary>
+        </member>
+        <member name="P:MediatRFluentDemo.Models.Milestone.Title">
+            <summary>
+            The Title of the milestone
+            </summary>
+        </member>
+        <member name="P:MediatRFluentDemo.Models.Milestone.Content">
+            <summary>
+            The Content of the milestone
+            </summary>
+        </member>
+        <member name="P:MediatRFluentDemo.Models.Milestone.AchivedOn">
+            <summary>
+            The Achived date of the milestone
+            </summary>
+        </member>
+        <member name="P:MediatRFluentDemo.Models.Milestone.AdditionalDetails">
+            <summary>
+            Additiotnal information about the milestone
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -13,7 +13,7 @@ namespace BrokenServer.Controllers
 
             if (rnd == 2)
             {
-                throw new ArgumentNullException("");
+                throw new ArgumentNullException();
             }
 
             return Ok();

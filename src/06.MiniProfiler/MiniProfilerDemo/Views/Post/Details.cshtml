@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "Details Page";
+}
+@model PostDetailsViewModel
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+
+<div class="row">
+    <div class="col-md-3">@Model.Title</div>
+    <div class="col-md-3">@Model.Content</div>
+    @foreach(var item in Model.Tags)
+    {
+        <div class="col-sm-1"> @item.Name</div>
+    }
+</div>

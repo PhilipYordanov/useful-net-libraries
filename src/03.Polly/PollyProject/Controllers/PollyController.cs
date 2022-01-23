@@ -20,7 +20,7 @@ namespace PollyProject.Controllers
 
             var res = await client.GetAsync("/Broken");
 
-            return Ok(res);
+            return Ok(res.Content);
         }
     }
 }

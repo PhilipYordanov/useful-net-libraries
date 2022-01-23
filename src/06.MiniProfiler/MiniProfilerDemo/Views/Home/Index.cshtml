@@ -1,0 +1,18 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model List<PostViewModel>
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+@foreach (var item in Model)
+{
+    <div class="row">
+        <div class="col-md-5">@item.Title</div>
+        <div class="col-md-5">@item.Content</div>
+        <a class="col-md-2 btn btn-info" asp-action="Details" asp-controller="Post" asp-route-postId="@item.PostId">Details</a>
+    </div>
+}
