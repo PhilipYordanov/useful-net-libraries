@@ -27,7 +27,7 @@
             RequestHandlerDelegate<TResponse> next)
         {
             //Request
-            _logger.LogInformation($"Handling {typeof(TRequest).Name}");
+            _logger.LogInformation($"Handling ---------------> {typeof(TRequest).Name}");
             Type type = request.GetType();
 
             IList<PropertyInfo> properties = new List<PropertyInfo>(type.GetProperties());
@@ -35,13 +35,13 @@
             foreach (PropertyInfo property in properties)
             {
                 object propValue = property.GetValue(request, null);
-                _logger.LogInformation("{Property} : {@Value}", property.Name, propValue);
+                _logger.LogInformation("{Property} -------------> {@Value}", property.Name, propValue);
             }
 
             var response = await next();
 
             //Response
-            _logger.LogInformation($"Handled {typeof(TResponse).Name}");
+            _logger.LogInformation($"Handled -----------------> {typeof(TResponse).Name}");
             return response;
         }
     }

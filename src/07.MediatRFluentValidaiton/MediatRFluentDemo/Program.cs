@@ -17,11 +17,12 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 #region DbContext
-builder.Services.AddDbContext<ApplicationContext>(options =>
-    options.UseSqlServer(
-        builder.Configuration.GetConnectionString("DefaultConnection"),
-        b => b.MigrationsAssembly(typeof(ApplicationContext).Assembly.FullName)));
-
+builder.Services.AddDbContext<ApplicationContext>(
+               opt =>
+               {
+                   opt.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+                   opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+               });
 builder.Services.AddScoped<IApplicationContext>(provider => provider.GetService<ApplicationContext>());
 #endregion
 

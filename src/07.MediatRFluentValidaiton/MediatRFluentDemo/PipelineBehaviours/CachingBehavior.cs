@@ -9,7 +9,6 @@
     using Abstractions;
     using Settings;
     using Microsoft.Extensions.Caching.Distributed;
-    using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
     using Newtonsoft.Json;
 
@@ -17,13 +16,11 @@
         where TRequest : IRequest<TResponse>
     {
         private readonly IDistributedCache _cache;
-        private readonly ILogger _logger;
         private readonly CacheSettings _settings;
 
-        public CachingBehavior(IDistributedCache cache, ILogger<TResponse> logger, IOptions<CacheSettings> settings)
+        public CachingBehavior(IDistributedCache cache, IOptions<CacheSettings> settings)
         {
             _cache = cache;
-            _logger = logger;
             _settings = settings.Value;
         }
 
@@ -45,19 +42,15 @@
 
             // fetches from IDistributedCache instance and checks if any data with the passed cache key exists
             var cachedResponse = await _cache.GetAsync((string)cacheableRequest?.CacheKey, cancellationToken);
-            string message = string.Empty;
             if (cachedResponse != null)
             {
                 response = JsonConvert.DeserializeObject<TResponse>(Encoding.Default.GetString(cachedResponse));
-                message = $"Fetched from Cache";
             }
             else
             {
                 response = await AddResponseToCache(next, cacheableRequest, cancellationToken);
-                message = $"Added to Cache";
             }
 
-            _logger.LogInformation($"{message} -> '{cacheableRequest.CacheKey}'.");
             return response;
         }
 

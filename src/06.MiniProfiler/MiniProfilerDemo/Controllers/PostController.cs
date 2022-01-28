@@ -27,11 +27,11 @@ namespace MiniProfilerDemo.Controllers
         {
             // MiniProfiler.Current.Inline || MiniProfiler.Current.Step for important segmnets and wrap them with timer
             // Step --> can lead to scope problem, might need some refactoring.
-            //Post result = null;
-            //using (MiniProfiler.Current.Step("SQL call"))
-            //{
-            //    result = await this.postService.GetById(postId);
-            //}
+            // Post result = null;
+            // using (MiniProfiler.Current.Step("SQL call"))
+            // {
+            //     result = await this.postService.GetById(postId);
+            // }
 
             var firstCall = await MiniProfiler.Current.Inline(() => this.postService.GetAll(), "postService call");
             var secondCall = await MiniProfiler.Current.Inline(() => this.tagService.GetAll(), "tagService call");
