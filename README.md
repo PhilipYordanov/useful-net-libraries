@@ -9,11 +9,9 @@ This repository contains demo code for the event "Useful .NET Libraries" at DEV.
 
 ## Topics
 - AngleSharp
-- EPPLus
 - Polly
 - Benchmark DotNet
 - ASP.NET Core Template
 - MiniProfiler
-- Swashbuckle
 - MediatR
 - FluentValidation
