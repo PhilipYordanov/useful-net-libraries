@@ -23,6 +23,7 @@ builder.Services.AddScoped<IPostService, PostService>();
 builder.Services.AddScoped<ITagService, TagService>();
 
 builder.Services.AddHttpClient();
+// TODO:[MiniProfiler][Step 1]: Register Mini profiler
 builder.Services.AddMiniProfiler(options =>
 {
     options.PopupShowTimeWithChildren = true; // <-- more detailed information
@@ -52,6 +53,7 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+// TODO:[MiniProfiler][Step 2]: add miniprofiler middleware to profile our HTTP requests
 app.UseMiniProfiler();
 
 app.MapControllerRoute(

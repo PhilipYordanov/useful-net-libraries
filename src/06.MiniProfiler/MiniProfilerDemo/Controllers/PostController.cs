@@ -3,10 +3,6 @@ using MiniProfilerDemo.Data;
 using MiniProfilerDemo.Models;
 using MiniProfilerDemo.Services;
 using StackExchange.Profiling;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace MiniProfilerDemo.Controllers
 {
@@ -27,12 +23,14 @@ namespace MiniProfilerDemo.Controllers
         {
             // MiniProfiler.Current.Inline || MiniProfiler.Current.Step for important segmnets and wrap them with timer
             // Step --> can lead to scope problem, might need some refactoring.
+            // TODO:[MiniProfiler][Step 3]: Uncomment this code in order to create time segment for current step
             // Post result = null;
             // using (MiniProfiler.Current.Step("SQL call"))
             // {
             //     result = await this.postService.GetById(postId);
             // }
 
+            // TODO:[MiniProfiler][Step 4]: Create time segment that will show time spent for postService call
             var firstCall = await MiniProfiler.Current.Inline(() => this.postService.GetAll(), "postService call");
             var secondCall = await MiniProfiler.Current.Inline(() => this.tagService.GetAll(), "tagService call");
 
@@ -78,10 +76,11 @@ namespace MiniProfilerDemo.Controllers
             httpClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
             httpClient.DefaultRequestHeaders.UserAgent.TryParseAdd("request");
 
+            // TODO:[MiniProfiler][Step 5]: Custom timing provided by MiniProfiler, gives us a way to monitor external calls
             // category name/column name    (e.g. http)
             // command that is beign run    (e.g. url of the API)
             // execute type                 (e.g. HTTP verb)
-            using (CustomTiming timing = MiniProfiler.Current.CustomTiming("custom column name: HTTP", string.Empty, "GET"))
+            using (CustomTiming timing = MiniProfiler.Current.CustomTiming("http", string.Empty, "GET"))
             {
                 var response = await httpClient.GetAsync(url);
                 timing.CommandString = $"URL: {url}\n\n REPONSE CODE: {response.StatusCode}";
